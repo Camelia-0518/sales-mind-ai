@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "name": "salesmind-frontend",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "env": {
+    "NEXT_PUBLIC_API_URL": "@salesmind_api_url"
+  }
+}

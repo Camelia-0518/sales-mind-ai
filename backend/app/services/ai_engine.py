@@ -11,12 +11,17 @@ class AIEngine:
     """AI引擎 - 处理所有智能生成任务"""
 
     def __init__(self):
-        self.openai_client = openai.AsyncOpenAI(
-            api_key=settings.OPENAI_API_KEY or os.getenv("OPENAI_API_KEY")
-        )
-        self.anthropic_client = anthropic.AsyncAnthropic(
-            api_key=settings.ANTHROPIC_API_KEY or os.getenv("ANTHROPIC_API_KEY")
-        )
+        self.openai_client = None
+        self.anthropic_client = None
+
+        # 只在有 API key 时初始化客户端
+        openai_key = settings.OPENAI_API_KEY or os.getenv("OPENAI_API_KEY")
+        if openai_key:
+            self.openai_client = openai.AsyncOpenAI(api_key=openai_key)
+
+        anthropic_key = settings.ANTHROPIC_API_KEY or os.getenv("ANTHROPIC_API_KEY")
+        if anthropic_key:
+            self.anthropic_client = anthropic.AsyncAnthropic(api_key=anthropic_key)
 
     async def generate_follow_up_message(
         self,

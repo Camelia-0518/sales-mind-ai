@@ -66,6 +66,9 @@ services:
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       # 方案2: Groq (免费20/min)
       GROQ_API_KEY: ${GROQ_API_KEY:-}
+      # 方案3: Kimi
+      KIMI_API_KEY: ${KIMI_API_KEY:-}
+      KIMI_MODEL: ${KIMI_MODEL:-kimi-k2-5}
       AI_PROVIDER: ${AI_PROVIDER:-gemini}
 
       # 邮件配置 - 使用控制台输出
@@ -109,6 +112,8 @@ services:
       SECRET_KEY: local-dev-key-change-in-production
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       GROQ_API_KEY: ${GROQ_API_KEY:-}
+      KIMI_API_KEY: ${KIMI_API_KEY:-}
+      KIMI_MODEL: ${KIMI_MODEL:-kimi-k2-5}
       AI_PROVIDER: ${AI_PROVIDER:-gemini}
       EMAIL_BACKEND: console
       RESEND_API_KEY: ${RESEND_API_KEY:-}

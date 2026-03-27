@@ -86,7 +86,7 @@ class User(Base):
     webhooks = relationship("Webhook", back_populates="user")
 
 
-class Playbook(Base):
+class Conversation(Base):
     __tablename__ = "conversations"
 
     id = Column(Integer, primary_key=True, index=True)
