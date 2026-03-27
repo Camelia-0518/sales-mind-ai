@@ -18,6 +18,7 @@ class FreeAIEngine:
         self.gemini_key = os.getenv("GEMINI_API_KEY")
         self.groq_key = os.getenv("GROQ_API_KEY")
         self.kimi_key = os.getenv("KIMI_API_KEY")
+        self.kimi_model = os.getenv("KIMI_MODEL", "moonshot-v1-8k")  # 可选: kimi-k2-5, moonshot-v1-32k, moonshot-v1-128k
 
     async def generate_follow_up_message(
         self,
@@ -105,7 +106,7 @@ class FreeAIEngine:
                 return "您好，想了解更多详情，请回复此邮件。"
 
     async def _call_kimi(self, prompt: str) -> str:
-        """Call Kimi/Moonshot AI (有免费额度)"""
+        """Call Kimi/Moonshot AI (支持 K2.5)"""
         url = "https://api.moonshot.cn/v1/chat/completions"
 
         headers = {
@@ -114,7 +115,7 @@ class FreeAIEngine:
         }
 
         payload = {
-            "model": "moonshot-v1-8k",
+            "model": self.kimi_model,  # 可以是 kimi-k2-5, moonshot-v1-8k, moonshot-v1-32k, moonshot-v1-128k
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.7,
             "max_tokens": 500
