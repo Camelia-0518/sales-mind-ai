@@ -1,0 +1,74 @@
+: {
+  "name": "AI Sales Copilot",
+  "codename": "salesmind",
+  "version": "0.1.0",
+  "status": "planning",
+
+  "overview": {
+    "description": "AI驱动的销售助手，自动跟进线索、生成提案、安排会议，让销售团队效率提升3倍",
+    "target_users": "B2B销售团队、独立销售顾问、中小企业主",
+    "value_proposition": "把销售从繁琐的跟进工作中解放出来，专注在高价值成交环节"
+  },
+
+  "market": {
+    "tam": "$45B (销售自动化软件市场)",
+    "sam": "$12B (中小企业销售工具)",
+    "target_niche": "10-200人销售团队的AI跟进工具",
+    "competitors": ["HubSpot", "Salesforce Einstein", "Apollo.io", "Outreach"],
+    "differentiation": "专注中文市场，开箱即用的AI跟进剧本，无需复杂配置"
+  },
+
+  "features": {
+    "mvp": [
+      "CRM线索导入 (Excel/手动)",
+      "AI自动邮件跟进 (多轮对话)",
+      "智能提案生成 (根据客户需求)",
+      "会议自动安排 (日历集成)",
+      "跟进状态看板"
+    ],
+    "v2": [
+      "微信/企微集成",
+      "语音呼叫功能",
+      "销售数据分析",
+      "团队协作功能"
+    ],
+    "future": [
+      "预测性成交评分",
+      "自动合同生成",
+      "客户意图识别"
+    ]
+  },
+
+  "business_model": {
+    "pricing": {
+      "free": "50个线索/月，基础AI跟进",
+      "pro": "￥299/月/人，无限线索，高级AI剧本",
+      "team": "￥199/月/人 (5人以上)，团队协作，数据分析"
+    },
+    "metrics": {
+      "target_arr_year1": "￥500,000",
+      "target_customers_year1": 150,
+      "ltv": "￥3,600",
+      "cac": "￥800"
+    }
+  },
+
+  "tech_stack": {
+    "frontend": "Next.js 15 + TypeScript + Tailwind CSS + shadcn/ui",
+    "backend": "FastAPI + Python 3.11",
+    "database": "PostgreSQL + Redis",
+    "ai": "OpenAI GPT-4o + Claude API",
+    "deployment": "Vercel (前端) + Railway (后端)",
+    "integrations": ["Google Calendar", "Outlook", "企业微信"]
+  },
+
+  "timeline": {
+    "week1": "产品PRD + 技术架构 + UI设计",
+    "week2": "核心后端API + 数据库设计",
+    "week3": "前端界面 + AI集成",
+    "week4": "测试优化 + 部署上线 + 内测"
+  },
+
+  "created_at": "2026-03-27",
+  "updated_at": "2026-03-27"
+}
