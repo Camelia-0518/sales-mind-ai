@@ -17,6 +17,7 @@ class FreeAIEngine:
         self.provider = os.getenv("AI_PROVIDER", "gemini")
         self.gemini_key = os.getenv("GEMINI_API_KEY")
         self.groq_key = os.getenv("GROQ_API_KEY")
+        self.kimi_key = os.getenv("KIMI_API_KEY")
 
     async def generate_follow_up_message(
         self,
@@ -48,6 +49,8 @@ class FreeAIEngine:
             return await self._call_gemini(prompt)
         elif self.provider == "groq":
             return await self._call_groq(prompt)
+        elif self.provider == "kimi":
+            return await self._call_kimi(prompt)
         else:
             return await self._call_gemini(prompt)  # fallback
 
@@ -101,6 +104,32 @@ class FreeAIEngine:
                 print(f"Groq error: {data}")
                 return "您好，想了解更多详情，请回复此邮件。"
 
+    async def _call_kimi(self, prompt: str) -> str:
+        """Call Kimi/Moonshot AI (有免费额度)"""
+        url = "https://api.moonshot.cn/v1/chat/completions"
+
+        headers = {
+            "Authorization": f"Bearer {self.kimi_key}",
+            "Content-Type": "application/json"
+        }
+
+        payload = {
+            "model": "moonshot-v1-8k",
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.7,
+            "max_tokens": 500
+        }
+
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            response = await client.post(url, json=payload, headers=headers)
+            data = response.json()
+
+            if "choices" in data:
+                return data["choices"][0]["message"]["content"].strip()
+            else:
+                print(f"Kimi error: {data}")
+                return "您好，想了解更多详情，请回复此邮件。"
+
     async def analyze_lead_intent(self, message: str) -> Dict:
         """Analyze intent using free AI"""
         prompt = f"""分析这条客户消息，返回JSON格式：
@@ -120,6 +149,8 @@ class FreeAIEngine:
         try:
             if self.provider == "gemini":
                 response = await self._call_gemini(prompt)
+            elif self.provider == "kimi":
+                response = await self._call_kimi(prompt)
             else:
                 response = await self._call_groq(prompt)
 
@@ -158,6 +189,8 @@ class FreeAIEngine:
         try:
             if self.provider == "gemini":
                 response = await self._call_gemini(prompt)
+            elif self.provider == "kimi":
+                response = await self._call_kimi(prompt)
             else:
                 response = await self._call_groq(prompt)
 
