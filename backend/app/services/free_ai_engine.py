@@ -107,7 +107,8 @@ class FreeAIEngine:
 
     async def _call_kimi(self, prompt: str) -> str:
         """Call Kimi/Moonshot AI (支持 K2.5)"""
-        url = "https://api.moonshot.cn/v1/chat/completions"
+        from app.core.config import settings
+        url = f"{settings.KIMI_API_URL}/chat/completions"
 
         headers = {
             "Authorization": f"Bearer {self.kimi_key}",
