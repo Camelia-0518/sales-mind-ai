@@ -1,5 +1,5 @@
 # Railway Dockerfile - Build from project root
-# Cache buster: v3
+# Cache buster: v4
 
 FROM python:3.11-slim
 
