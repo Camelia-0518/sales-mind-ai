@@ -22,7 +22,7 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: Optional[str] = None
     KIMI_API_KEY: Optional[str] = None
     KIMI_MODEL: str = "kimi-k2-5"
-    KIMI_API_URL: str = "https://api.kimi.com/v1"
+    KIMI_API_URL: str = "https://api.kimi.com/coding"
 
     # JWT
     SECRET_KEY: str = "your-secret-key-change-in-production"
