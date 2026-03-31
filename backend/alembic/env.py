@@ -40,10 +40,19 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
+    # Railway requires SSL for PostgreSQL
+    configuration = config.get_section(config.config_ini_section, {})
+    url = configuration.get("sqlalchemy.url", database_url)
+
+    connect_args = {}
+    if "railway.app" in url or "sslmode" in url:
+        connect_args["sslmode"] = "require"
+
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
+        configuration,
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
+        connect_args=connect_args,
     )
     with connectable.connect() as connection:
         context.configure(connection=connection, target_metadata=target_metadata)

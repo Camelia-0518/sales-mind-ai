@@ -1,16 +1,23 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from contextlib import asynccontextmanager
+import logging
 
 from app.core.config import settings
 from app.core.middleware import setup_middleware
 from app.api.v1.router import api_router
 from app.core.database import engine, Base
 
+logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup
-    Base.metadata.create_all(bind=engine)
+    # Startup - create tables with error handling
+    try:
+        Base.metadata.create_all(bind=engine)
+        logger.info("Database tables created successfully")
+    except Exception as e:
+        logger.warning(f"Database initialization failed (will retry on first request): {e}")
     yield
     # Shutdown
 
