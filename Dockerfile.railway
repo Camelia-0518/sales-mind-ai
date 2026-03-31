@@ -1,5 +1,5 @@
 # Railway Dockerfile - Build from project root
-# Cache buster: v2
+# Cache buster: v3
 
 FROM python:3.11-slim
 
@@ -20,8 +20,16 @@ COPY backend/app/ ./app/
 COPY backend/alembic/ ./alembic/
 COPY backend/alembic.ini .
 
-# Railway provides PORT env variable
-EXPOSE ${PORT}
+# Railway provides PORT env variable - default to 8000 if not set
+ENV PORT=8000
 
-# Start with verbose logging
-CMD ["sh", "-c", "echo 'Starting SalesMind API on port ' ${PORT} && uvicorn app.main:app --host 0.0.0.0 --port ${PORT} --log-level debug"]
+# Expose port
+EXPOSE $PORT
+
+# Create startup script
+RUN echo '#!/bin/sh\n\
+echo "Starting SalesMind API on port $PORT"\n\
+exec uvicorn app.main:app --host 0.0.0.0 --port "$PORT" --log-level debug' > /app/start.sh && chmod +x /app/start.sh
+
+# Start with shell script
+CMD ["/app/start.sh"]
